@@ -38,7 +38,6 @@ export function useBasket(
 
     let subtotalAmount = 0;
     let totalDiscount = 0;
-    const discounts: Record<string, number> = {};
 
     // Calculate total applying offers
     Object.entries(itemCounts).forEach(([code, quantity]) => {
@@ -54,7 +53,6 @@ export function useBasket(
         );
         subtotalAmount += totalCost;
         if (discount > 0) {
-          discounts[code] = discount;
           totalDiscount += discount;
         }
       } else {
@@ -65,7 +63,6 @@ export function useBasket(
 
     return {
       subtotal: subtotalAmount,
-      discounts,
       totalDiscount,
     };
   };

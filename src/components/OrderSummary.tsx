@@ -1,5 +1,5 @@
-import type { Product, DeliveryCostRule } from '../domain/types';
-import './OrderSummary.css';
+import type { Product, DeliveryCostRule } from "../domain/types";
+import "./OrderSummary.css";
 
 interface OrderSummaryProps {
   itemIds: string[];
@@ -10,7 +10,6 @@ interface OrderSummaryProps {
   total: () => number;
   getSubtotalsAndDiscounts: () => {
     subtotal: number;
-    discounts: Record<string, number>;
     totalDiscount: number;
   };
 }
@@ -42,13 +41,10 @@ export function OrderSummary({
   const deliveryCost = getDeliveryCost(subtotalAmount);
   const totalAmount = total();
 
-  const itemCounts = itemIds.reduce(
-    (acc, code) => {
-      acc[code] = (acc[code] || 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>
-  );
+  const itemCounts = itemIds.reduce((acc, code) => {
+    acc[code] = (acc[code] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
 
   return (
     <div className="order-summary">
@@ -95,7 +91,9 @@ export function OrderSummary({
           {getSubtotalsAndDiscounts().totalDiscount > 0 && (
             <div className="summary-row discount">
               <span>Discount</span>
-              <span>-${getSubtotalsAndDiscounts().totalDiscount.toFixed(2)}</span>
+              <span>
+                -${getSubtotalsAndDiscounts().totalDiscount.toFixed(2)}
+              </span>
             </div>
           )}
           <div className="summary-row">
