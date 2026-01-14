@@ -1,10 +1,10 @@
 import { ProductCatalog } from "./components/ProductCatalog";
 import { OrderSummary } from "./components/OrderSummary";
 import { useBasket } from "./hooks/useBasket";
-import { catalogue, deliveryRules } from "./persistence/config";
+import { catalogue, deliveryRules, offers } from "./persistence/config";
 
 function App() {
-  const basket = useBasket(catalogue, deliveryRules);
+  const basket = useBasket(catalogue, deliveryRules, offers);
 
   return (
     <div className="app-container">

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import type { Product, DeliveryCostRule } from "../domain/types";
+import type { Product, DeliveryCostRule, Offer } from "../domain/types";
 
 export function useBasket(
   catalogue: Record<string, Product>,
-  deliveryRules: DeliveryCostRule[]
+  deliveryRules: DeliveryCostRule[],
+  offers: Offer[]
 ) {
   const [itemIds, setItemsIds] = useState<string[]>([]);
 
@@ -21,10 +22,34 @@ export function useBasket(
     });
   };
 
+  const getOfferForProduct = (productCode: string) => {
+    return offers.find((offer) => offer.productCode === productCode);
+  };
+
   const subtotal = () => {
-    return itemIds.reduce((sum, code) => {
+    // Group items by product code
+    const itemCounts = itemIds.reduce(
+      (acc, code) => {
+        acc[code] = (acc[code] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
+
+    // Calculate total applying offers
+    return Object.entries(itemCounts).reduce((sum, [code, quantity]) => {
       const product = catalogue[code];
-      return sum + (product ? product.price : 0);
+      if (!product) return sum;
+
+      const offer = getOfferForProduct(code);
+      if (offer) {
+        // Apply offer discount
+        const result = offer.discountFunction(quantity, product.price);
+        return sum + result.totalCost;
+      } else {
+        // No offer, regular price
+        return sum + quantity * product.price;
+      }
     }, 0);
   };
 
