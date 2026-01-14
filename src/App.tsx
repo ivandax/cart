@@ -19,6 +19,7 @@ function App() {
           onRemoveItem={basket.remove}
           subtotal={basket.subtotal}
           total={basket.total}
+          getSubtotalsAndDiscounts={basket.getSubtotalsAndDiscounts}
         />
       </div>
     </div>

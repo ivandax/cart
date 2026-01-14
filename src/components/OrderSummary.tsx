@@ -8,6 +8,11 @@ interface OrderSummaryProps {
   onRemoveItem: (code: string) => void;
   subtotal: () => number;
   total: () => number;
+  getSubtotalsAndDiscounts: () => {
+    subtotal: number;
+    discounts: Record<string, number>;
+    totalDiscount: number;
+  };
 }
 
 export function OrderSummary({
@@ -17,6 +22,7 @@ export function OrderSummary({
   onRemoveItem,
   subtotal,
   total,
+  getSubtotalsAndDiscounts,
 }: OrderSummaryProps) {
   const getDeliveryCost = (amount: number) => {
     const sortedRules = [...deliveryRules].sort(
@@ -84,8 +90,14 @@ export function OrderSummary({
         <div className="summary-details">
           <div className="summary-row">
             <span>Subtotal</span>
-            <span>${subtotalAmount.toFixed(2)}</span>
+            <span>${subtotal().toFixed(2)}</span>
           </div>
+          {getSubtotalsAndDiscounts().totalDiscount > 0 && (
+            <div className="summary-row discount">
+              <span>Discount</span>
+              <span>-${getSubtotalsAndDiscounts().totalDiscount.toFixed(2)}</span>
+            </div>
+          )}
           <div className="summary-row">
             <span>Delivery</span>
             <span>${deliveryCost.toFixed(2)}</span>

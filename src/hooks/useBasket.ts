@@ -26,7 +26,7 @@ export function useBasket(
     return offers.find((offer) => offer.productCode === productCode);
   };
 
-  const subtotal = () => {
+  const getSubtotalsAndDiscounts = () => {
     // Group items by product code
     const itemCounts = itemIds.reduce(
       (acc, code) => {
@@ -36,21 +36,42 @@ export function useBasket(
       {} as Record<string, number>
     );
 
+    let subtotalAmount = 0;
+    let totalDiscount = 0;
+    const discounts: Record<string, number> = {};
+
     // Calculate total applying offers
-    return Object.entries(itemCounts).reduce((sum, [code, quantity]) => {
+    Object.entries(itemCounts).forEach(([code, quantity]) => {
       const product = catalogue[code];
-      if (!product) return sum;
+      if (!product) return;
 
       const offer = getOfferForProduct(code);
       if (offer) {
         // Apply offer discount
-        const result = offer.discountFunction(quantity, product.price);
-        return sum + result.totalCost;
+        const { totalCost, discount } = offer.discountFunction(
+          quantity,
+          product.price
+        );
+        subtotalAmount += totalCost;
+        if (discount > 0) {
+          discounts[code] = discount;
+          totalDiscount += discount;
+        }
       } else {
         // No offer, regular price
-        return sum + quantity * product.price;
+        subtotalAmount += quantity * product.price;
       }
-    }, 0);
+    });
+
+    return {
+      subtotal: subtotalAmount,
+      discounts,
+      totalDiscount,
+    };
+  };
+
+  const subtotal = () => {
+    return getSubtotalsAndDiscounts().subtotal;
   };
 
   const getDeliveryCost = (amount: number) => {
@@ -82,5 +103,6 @@ export function useBasket(
     remove,
     subtotal,
     total,
+    getSubtotalsAndDiscounts,
   };
 }
