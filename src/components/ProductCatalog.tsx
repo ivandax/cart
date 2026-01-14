@@ -21,6 +21,7 @@ export function ProductCatalog({
             key={product.code}
             className="product-card"
             onClick={() => onProductClick(product.code)}
+            style={{ backgroundColor: product.color }}
           >
             <div className="product-name">{product.name}</div>
             <div className="product-price">${product.price.toFixed(2)}</div>

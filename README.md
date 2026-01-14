@@ -10,5 +10,6 @@ Start with `yarn dev`
 ## Considerations / Exclusions for simplicity
 
  - No styling tools like Prettier or Eslint
- - No routing. Can be improved by using React Router or Tanstack Router
+ - No routing. Can be improved by using React Router or others.
  - No testing added
+ - Simple CSS rules, no use of Tailwind or other UI libraries

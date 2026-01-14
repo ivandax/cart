@@ -2,9 +2,9 @@ import type { Product, DeliveryCostRule } from "../domain/types.js";
 
 // Product catalogue
 export const catalogue: Record<string, Product> = {
-  R01: { code: "R01", name: "Red Widget", price: 32.95 },
-  G01: { code: "G01", name: "Green Widget", price: 24.95 },
-  B01: { code: "B01", name: "Blue Widget", price: 7.95 },
+  R01: { code: "R01", name: "Red Widget", price: 32.95, color: "lightRed" },
+  G01: { code: "G01", name: "Green Widget", price: 24.95, color: "lightGreen" },
+  B01: { code: "B01", name: "Blue Widget", price: 7.95, color: "lightBlue" },
 };
 
 // Delivery cost rules (sorted ascending by threshold)
