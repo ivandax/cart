@@ -1,12 +1,16 @@
 .product-catalog {
-  width: 100%;
-  padding: 1rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid #646cff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(100, 108, 255, 0.1);
 }
 
 .product-catalog h2 {
   margin-top: 0;
   margin-bottom: 1.5rem;
   font-size: 1.5em;
+  color: #fff;
 }
 
 .products-grid {
