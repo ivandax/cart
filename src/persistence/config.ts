@@ -7,9 +7,10 @@ export const catalogue: Record<string, Product> = {
   B01: { code: "B01", name: "Blue Widget", price: 7.95, color: "lightBlue" },
 };
 
-// Delivery cost rules (sorted ascending by threshold)
+// Delivery cost rules (threshold represents minimum spending to get that cost)
+// Rules can be in any order - the hook will sort them correctly
 export const deliveryRules: DeliveryCostRule[] = [
-  { threshold: 50, cost: 4.95 },
-  { threshold: 90, cost: 2.95 },
-  { threshold: Infinity, cost: 0 }, // free delivery for 90+
+  { threshold: 90, cost: 0 },     // $90+ = free delivery
+  { threshold: 50, cost: 2.95 },  // $50-89.99 = $2.95
+  { threshold: 0, cost: 4.95 },   // under $50 = $4.95
 ];

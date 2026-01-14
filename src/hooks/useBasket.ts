@@ -29,7 +29,8 @@ export function useBasket(
   };
 
   const getDeliveryCost = (amount: number) => {
-    // Sort rules by threshold in descending order
+    // Sort rules by threshold in descending order (highest first)
+    // This ensures we find the highest spending tier the customer qualifies for
     const sortedRules = [...deliveryRules].sort(
       (a, b) => b.threshold - a.threshold
     );
@@ -40,6 +41,7 @@ export function useBasket(
       }
     }
 
+    // Fallback: no matching rule (shouldn't happen with proper config)
     return 0;
   };
 
