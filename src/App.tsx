@@ -1,4 +1,5 @@
 import { ProductCatalog } from "./components/ProductCatalog";
+import { OrderSummary } from "./components/OrderSummary";
 import { useBasket } from "./hooks/useBasket";
 import { catalogue, deliveryRules } from "./persistence/config";
 
@@ -11,7 +12,14 @@ function App() {
         <ProductCatalog catalogue={catalogue} onProductClick={basket.add} />
       </div>
       <div className="right-panel">
-        {/* Basket will go here */}
+        <OrderSummary
+          itemIds={basket.itemIds}
+          catalogue={catalogue}
+          deliveryRules={deliveryRules}
+          onRemoveItem={basket.remove}
+          subtotal={basket.subtotal}
+          total={basket.total}
+        />
       </div>
     </div>
   );
