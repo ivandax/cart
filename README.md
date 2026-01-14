@@ -17,3 +17,7 @@ Start with `yarn dev`
  - Simple CSS rules, no use of Tailwind or other UI libraries
 
  All the points above are improvents to be made on production-ready apps.
+
+## Preview
+
+![Application View](./view.JPG)
