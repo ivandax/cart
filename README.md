@@ -1,7 +1,3 @@
-# AI
-
-App coded with the assistance of AI, choices were explicit to meet with requirements.
-
 # Shopping Cart Application
 
 A production-oriented React shopping cart implementation demonstrating clean architecture, extensible design patterns, and separation of concerns.
@@ -22,8 +18,6 @@ Defines core business entities with strong typing:
 - **Product**: Catalog items with pricing and metadata
 - **DeliveryCostRule**: Threshold-based shipping tiers
 - **Offer**: Extensible discount system using function-based calculations
-
-**Technical Decision**: Using discriminated union types for offers allows adding new discount types (bundle offers, percentage discounts) without breaking existing code. This demonstrates the Open/Closed Principle.
 
 ### 2. **Business Logic Layer** (`src/hooks/useBasket.ts`)
 
@@ -84,30 +78,6 @@ Regular: $65.90
 Discount: -$16.48 (second at half price)
 Final: $49.42
 ```
-
-## Scalability Considerations
-
-### Ready for Production Enhancement:
-1. **Testing**: Unit tests for `useBasket` calculations, E2E tests for user flows
-2. **State Management**: For complex carts, consider Redux/Zustand for:
-   - Persisting cart state across sessions
-   - Undo/redo functionality
-   - Analytics tracking
-3. **Extensibility**:
-   - Add offer types: bundle deals, first-time customer discounts, etc.
-   - Implement inventory management
-   - Add shipping method selection
-   - Currency/localization support
-
-
-## Code Quality Principles Applied
-
-1. ✅ **DRY**: `getSubtotalsAndDiscounts()` calculated once, reused everywhere
-2. ✅ **Single Responsibility**: Each function/component has one purpose
-3. ✅ **Dependency Injection**: No global state or hardcoded dependencies
-4. ✅ **Type Safety**: Full TypeScript coverage prevents runtime errors
-5. ✅ **Configuration Over Code**: Offers and pricing in config, not scattered in components
-6. ✅ **User Feedback**: Clear discount display for transparency
 
 ## Preview
 
